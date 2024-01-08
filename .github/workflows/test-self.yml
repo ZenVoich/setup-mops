@@ -10,7 +10,9 @@ jobs:
     name: Test action.yml
     strategy:
       matrix:
-        mops-version: [0.27.0, 0.30.4]
+        mops-version: [0.27.0, latest]
+        wasmtime-version: [15.0.0]
+        pocket-ic-version: [1.0.0]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,3 +20,15 @@ jobs:
         uses: ./
         with:
           mops-version: ${{ matrix.mops-version }}
+          wasmtime-version: ${{ matrix.wasmtime-version }}
+          pocket-ic-version: ${{ matrix.pocket-ic-version }}
+      - name: Check mops version
+        run: mops --version
+      - name: Check wasmtime path
+        run: mops toolchain bin wasmtime
+      - name: Check wasmtime version
+        run: $(mops toolchain bin wasmtime) --version
+      - name: Check pocket-ic path
+        run: mops toolchain bin pocket-ic
+      - name: Check pocket-ic version
+        run: $(mops toolchain bin pocket-ic) --version
