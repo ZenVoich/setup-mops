@@ -36,7 +36,7 @@ runs:
 
     - name: Install mops
       shell: sh
-      run: npm i -g ${{ inputs.mops-version }}
+      run: npm i -g ic-mops@${{ inputs.mops-version }}
 
     - name: Install moc
       if: ${{ inputs.moc-version }}
