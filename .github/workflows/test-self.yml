@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         mops-version: [0.37.2, latest]
-        moc-version: [0.10.0]
         wasmtime-version: [15.0.0]
         pocket-ic-version: [1.0.0]
     steps:
@@ -20,7 +19,6 @@ jobs:
         uses: ./
         with:
           mops-version: ${{ matrix.mops-version }}
-          moc-version: ${{ matrix.moc-version }}
           wasmtime-version: ${{ matrix.wasmtime-version }}
           pocket-ic-version: ${{ matrix.pocket-ic-version }}
       - name: Check mops version
