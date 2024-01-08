@@ -1,0 +1,54 @@
+name: Install Mops
+description: Install Mops with caching for faster subsequent builds
+inputs:
+  mops-version:
+    description: Mops CLI version to install
+    default: latest
+  moc-version:
+    description: >
+      Install specific moc version
+      Equivalent to `mops toolchain use moc <version>`
+  wasmtime-version:
+    description: >
+      Install specific wasmtime version
+      Equivalent to `mops toolchain use wasmtime <version>`
+  pocket-ic-version:
+    description: >
+      Install specific pocket-ic version
+      Equivalent to `mops toolchain use pocket-ic <version>`
+
+runs:
+  using: composite
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Cache mops packages and toolchain
+      uses: actions/cache@v3
+      with:
+        key: mops-cache-${{ hashFiles('mops.toml') }}
+        restore-keys: |
+          mops-cache-${{ hashFiles('mops.toml') }}
+          mops-cache-
+        path: ~/.cache/mops
+
+    - name: Install mops
+      shell: sh
+      run: npm i -g ${{ inputs.mops-version }}
+
+    - name: Install moc
+      if: ${{ inputs.moc-version }}
+      shell: sh
+      run: mops toolchain use moc ${{ inputs.moc-version }}
+
+    - name: Install wasmtime
+      if: ${{ inputs.wasmtime-version }}
+      shell: sh
+      run: mops toolchain use wasmtime ${{ inputs.wasmtime-version }}
+
+    - name: Install pocket-ic
+      if: ${{ inputs.pocket-ic-version }}
+      shell: sh
+      run: mops toolchain use pocket-ic ${{ inputs.pocket-ic-version }}

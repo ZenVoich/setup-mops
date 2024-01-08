@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  test-self:
+    runs-on: ubuntu-latest
+    name: Test action.yml
+    strategy:
+      matrix:
+        mops-version: [0.27.0, 0.30.4]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install mops
+        uses: ./
+        with:
+          mops-version: ${{ matrix.mops-version }}
