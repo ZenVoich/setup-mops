@@ -10,20 +10,25 @@ jobs:
     name: Test action.yml
     strategy:
       matrix:
-        mops-version: [0.27.0, latest]
+        mops-version: [0.34.0, latest]
+        moc-version: [0.10.0]
         wasmtime-version: [15.0.0]
         pocket-ic-version: [1.0.0]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install mops
         uses: ./
         with:
           mops-version: ${{ matrix.mops-version }}
+          moc-version: ${{ matrix.moc-version }}
           wasmtime-version: ${{ matrix.wasmtime-version }}
           pocket-ic-version: ${{ matrix.pocket-ic-version }}
       - name: Check mops version
         run: mops --version
+      - name: Check moc path
+        run: mops toolchain bin moc
+      - name: Check moc version
+        run: $(mops toolchain bin moc) --version
       - name: Check wasmtime path
         run: mops toolchain bin wasmtime
       - name: Check wasmtime version
