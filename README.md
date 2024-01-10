@@ -46,6 +46,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ZenVoich/setup-mops@v1
         with:
           identity-pem: ${{ secrets.MOPS_IDENTITY_PEM }}
