@@ -29,7 +29,28 @@ jobs:
 steps:
   - uses: ZenVoich/setup-mops@v1
     with:
-      mops-version: 0.34.0
+      mops-version: 0.37.0
+```
+
+### Publish a package
+
+Learn how to use GitHub Secrets [here](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions?tool=webui).
+
+This example publishes a package to the Mops Registry when a GitHub release is created.
+
+```yaml
+on:
+  release:
+    types: [released]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ZenVoich/setup-mops@v1
+        with:
+          identity-pem: ${{ secrets.MOPS_IDENTITY_PEM }}
+      - name: Publish to the Mops Registry
+        run: mops publish
 ```
 
 ## Inputs
@@ -40,3 +61,4 @@ steps:
 | `moc-version`       | as specified in `mops.toml`
 | `wasmtime-version`  | as specified in `mops.toml`
 | `pocket-ic-version` | as specified in `mops.toml`
+| `identity-pem`      |               |

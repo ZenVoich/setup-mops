@@ -52,3 +52,13 @@ runs:
       if: ${{ inputs.pocket-ic-version }}
       shell: sh
       run: mops toolchain use pocket-ic ${{ inputs.pocket-ic-version }}
+
+    - name: Import identity
+      if: ${{ inputs.identity-pem }}
+      shell: sh
+      run: mops import-identity --no-encrypt -- ${{ inputs.identity-pem }}
+
+    - name: Ensure moc installation for publishing
+      if: ${{ ! inputs.moc-version && inputs.identity-pem }}
+      shell: sh
+      run: mops toolchain bin moc || mops toolchain use moc latest
