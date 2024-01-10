@@ -16,6 +16,11 @@ inputs:
     description: >
       Install specific pocket-ic version
       Equivalent to `mops toolchain use pocket-ic <version>`
+  identity-pem:
+    description: >
+      Identity PEM to import.
+      Use GitHub Secrets to store the PEM, do not paste it directly here.
+      Use only when you need to publish a package to the mops registry.
 
 runs:
   using: composite
@@ -56,7 +61,7 @@ runs:
     - name: Import identity
       if: ${{ inputs.identity-pem }}
       shell: sh
-      run: mops import-identity --no-encrypt -- ${{ inputs.identity-pem }}
+      run: mops import-identity --no-encrypt -- "${{ inputs.identity-pem }}"
 
     - name: Ensure moc installation for publishing
       if: ${{ ! inputs.moc-version && inputs.identity-pem }}
