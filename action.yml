@@ -47,6 +47,8 @@ runs:
         echo "MOPS_VERSION=$MOPS_VERSION";
         if echo "$MOPS_VERSION" | grep -Eq '^[^.]+\.[^.]+\.[^.]+$' || echo "$MOPS_VERSION" | grep -Eq '^[^.]+$'; then
           echo "INSTALL_ONCHAIN=true" >> $GITHUB_ENV
+        else
+          echo "INSTALL_ONCHAIN=false" >> $GITHUB_ENV
         fi
 
     - name: Install mops (onchain storage)
@@ -54,9 +56,7 @@ runs:
       env:
         MOPS_VERSION: ${{ inputs['mops-version'] }}
       shell: sh
-      run: |
-        echo "MOPS_VERSION=$MOPS_VERSION";
-        curl -fsSL cli.mops.one/install.sh | sh
+      run: curl -fsSL cli.mops.one/install.sh | sh
 
     - name: Install mops (npm registry)
       if: env.INSTALL_ONCHAIN == 'false'
