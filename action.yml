@@ -45,7 +45,7 @@ runs:
         MOPS_VERSION: ${{ inputs['mops-version'] }}
       run: |
         echo "MOPS_VERSION=$MOPS_VERSION";
-        if [[ $MOPS_VERSION =~ ^[^.]+\.[^.]+\.[^.]+$ ]] || [[ $MOPS_VERSION =~ ^[^.]+$ ]]; then
+        if echo "$MOPS_VERSION" | grep -Eq '^[^.]+\.[^.]+\.[^.]+$' || echo "$MOPS_VERSION" | grep -Eq '^[^.]+$'; then
           echo "INSTALL_ONCHAIN=true" >> $GITHUB_ENV
         fi
 
