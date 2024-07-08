@@ -10,7 +10,7 @@ jobs:
     name: Test action.yml
     strategy:
       matrix:
-        mops-version: [0.41.1, latest]
+        mops-version: [0.39, 0.41.1, latest]
         wasmtime-version: [15.0.0]
         pocket-ic-version: [1.0.0]
     steps:
