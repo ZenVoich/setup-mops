@@ -41,7 +41,7 @@ runs:
 
     - name: Install mops
       shell: sh
-      run: npm i -g ic-mops@${{ inputs.mops-version }}
+      run: curl -fsSL cli.mops.one/install.sh | sh
 
     - name: Install moc
       if: ${{ inputs.moc-version }}
