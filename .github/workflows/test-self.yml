@@ -6,13 +6,14 @@ on:
 
 jobs:
   test-self:
-    runs-on: ubuntu-latest
     name: Test action.yml
     strategy:
       matrix:
         mops-version: [0.39, 0.41.1, latest]
-        wasmtime-version: [15.0.0]
-        pocket-ic-version: [1.0.0]
+        wasmtime-version: [15.0.0, 24.0.0]
+        pocket-ic-version: [1.0.0, 5.0.0]
+        runner: [ubuntu-latest, macos-latest, macos-13]
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
       - name: Install mops
