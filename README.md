@@ -29,8 +29,10 @@ jobs:
 steps:
   - uses: ZenVoich/setup-mops@v1
     with:
-      mops-version: 0.37.0
+      mops-version: 1
 ```
+
+__Will install latest version of mops `1.x.x`.__
 
 ### Publish a package
 
