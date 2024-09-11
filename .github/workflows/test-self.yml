@@ -13,7 +13,7 @@ jobs:
         mops-version: [0.41.1, latest]
         wasmtime-version: [24.0.0]
         pocket-ic-version: [5.0.0]
-        runner: [ubuntu-latest, macos-latest, macos-13]
+        runner: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v4
