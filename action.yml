@@ -33,11 +33,13 @@ runs:
     - name: Cache mops packages and toolchain
       uses: actions/cache@v4
       with:
-        key: mops-cache-${{ hashFiles('mops.toml') }}
+        key: mops-cache-${{ runner.os }}-${{ hashFiles('mops.toml') }}
         restore-keys: |
-          mops-cache-${{ hashFiles('mops.toml') }}
-          mops-cache-
-        path: ~/.cache/mops
+          mops-cache-${{ runner.os }}-${{ hashFiles('mops.toml') }}
+          mops-cache-${{ runner.os }}
+        path: |
+          ~/.cache/mops
+          ~/Library/Caches/mops
 
     - name: Set env var
       shell: sh
