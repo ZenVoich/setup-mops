@@ -87,7 +87,7 @@ runs:
     - name: Import identity
       if: ${{ inputs.identity-pem }}
       shell: sh
-      run: mops import-identity --no-encrypt -- "${{ inputs.identity-pem }}"
+      run: mops user import --no-encrypt -- "${{ inputs.identity-pem }}"
 
     - name: Ensure moc installation for publishing
       if: ${{ ! inputs.moc-version && inputs.identity-pem }}
